@@ -26,7 +26,7 @@ public class Ingresso implements Serializable{
     private int quantidade;
     private float valor;
     private boolean inteiro;
-     
+
     @JsonIgnore
     @ManyToOne
 	@JoinColumn(name = "pj_i_id")

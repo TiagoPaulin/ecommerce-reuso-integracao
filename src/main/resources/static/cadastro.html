@@ -62,13 +62,13 @@
             var birth = $('#birth_date').val();
             var password = $('#password').val();
             $.ajax({
-                url: 'http://localhost:8080/pfs',
+                url: 'http://localhost:8080/pjs',
                 method: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({
                     nomeCompleto: name,
                     email: email,
-                    cpf: cpf,
+                    cnpj: cpf,
                     dataNascimento: birth,
                     senha: password
                 }),

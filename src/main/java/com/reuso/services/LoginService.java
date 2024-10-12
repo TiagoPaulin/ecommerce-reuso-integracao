@@ -34,7 +34,7 @@ public class LoginService {
 
         Optional<PessoaFisica> pessoaFisicaOpt = pessoaFisicaRepository.findByEmailAndSenha(email, senha);
 
-        if (pessoaJuridicaOpt.isPresent()) {
+        if (pessoaFisicaOpt.isPresent()) {
             PessoaFisica pessoaFisica = pessoaFisicaOpt.get();
 
             if (pessoaFisica.getEmail().equals(email) &&
