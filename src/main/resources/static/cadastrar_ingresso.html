@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Produto</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/cadastrar_ingresso.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <script>
+        $(document).ready(function() {
+            if(!localStorage.getItem('logged')){
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+
+    <header>
+        <div class="left">
+            <button onclick="history.back();">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            <h2>Cadastrar Produto</h2>
+        </div>
+
+    </header>
+
+    <form>
+        <div class="input-wrapper">
+            <label for="titulo_produto">Título do Produto</label>
+            <input type="text" name="titulo_produto" id="titulo_produto" placeholder="Ex: Ingresso Show Linkin Park">
+        </div>
+
+        <div class="input-wrapper">
+            <label for="titulo_evento">Título do Evento</label>
+            <input type="text" name="titulo_evento" id="titulo_evento" placeholder="Ex: Ingresso Show Linkin Park">
+        </div>
+
+        <div class="input-wrapper">
+            <label for="tipo_evento">Tipo do Evento</label>
+            <select name="tipo_evento" id="tipo_evento">
+                <option value="show" selected>Show</option>
+                <option value="festa_universitaria">Festa Universitária</option>
+            </select>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="imagem">Upload da imagem do produto</label>
+            <label for="imagem" class="input_image">
+                <img src="./assets/UploadImage.svg" alt="Upload Image">
+            </label>
+
+            <input type="file" name="imagem" id="imagem" style="display: none;">
+        </div>
+
+        <div class="input-wrapper">
+            <label for="descricao_produto">Descrição do Produto</label>
+            <textarea type="text" name="descricao_produto" id="descricao_produto" placeholder="Ex: Ingresso Show Linkin Park"></textarea>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="data_evento">Data do evento</label>
+            <input type="date" name="data_evento" id="data_evento">
+        </div>
+
+        <div class="input-wrapper">
+            <label for="horario_evento">Horário do evento</label>
+            <input type="time" name="horario_evento" id="horario_evento">
+        </div>
+
+        <button type="submit">Publicar</button>
+    </form>
+
+    <nav>
+        <a href="./home.html">
+            <i data-lucide="house"></i>
+        </a>
+        <a href="./ingressos.html" class="active">
+            <i data-lucide="ticket"></i>
+        </a>
+        <a href="./perfil.html">
+            <i data-lucide="user-round"></i>
+        </a>
+    </nav>
+
+
+    <!-- Ionic Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script src="./js/modal.js"></script>
+    <script src="./js/previewImg.js"></script>
+
+</body>
+</html>
