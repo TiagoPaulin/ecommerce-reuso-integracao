@@ -1,0 +1,61 @@
+header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+header button{
+    width: fit-content;
+    border-radius: 50%;
+    background: var(--light);
+    padding: 12px;
+    font-size: 20px;
+
+}
+
+header input{
+    width: 100%;
+    padding: 22px 18px;
+    background: var(--light);
+    border: 0;
+    font-size: 14px;
+}
+
+header button.active{
+    background: var(--black);
+    color: var(--white);
+}
+
+header button.active ion-icon{
+    color: var(--white);
+}
+
+header .left{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+header .left h2{
+    font-size: 14px;
+}
+
+header p{
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+header .right{
+    display: flex;
+    gap: 8px;
+}
+
+header button.blue{
+    background: var(--blue);
+}
+
+header button.blue ion-icon{
+    color: var(--white);
+}

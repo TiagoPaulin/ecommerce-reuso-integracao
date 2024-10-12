@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/login.css">
+</head>
+<body>
+
+    <img src="./assets/logo.png" alt="logo">
+
+    <form action="">
+        <h1>CADASTRO</h1>
+        <div class="input-wrapper">
+            <label for="name">Nome completo</label>
+            <input type="text" id="name" name="name" placeholder="Ex: João da Silva">
+        </div>
+        <div class="input-wrapper">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="Ex: vitalitygym@vitalitygym.com">
+        </div>
+        <div class="input-wrapper">
+            <label for="cpf">CPF</label>
+            <input type="text" id="cpf" name="cpf" placeholder="Ex: 000.000.000-00">
+        </div>
+        <div class="input-wrapper">
+            <label for="birth_date">Data de nascimento</label>
+            <input type="date" id="birth_date" name="birth_date">
+        </div>
+        <div class="input-wrapper">
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="input-wrapper">
+            <label for="repeat_password">Confirmar senha</label>
+            <input type="password" id="repeat_password">
+        </div>
+        <button type="submit">Cadastrar</button>
+        <div class="cadastro_div">
+            <p>Já possui login?</p>
+            <a href="./login.html">Login aqui</a>
+        </div>
+    </form>
+
+</body>
+</html>

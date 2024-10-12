@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/modal.css">
+</head>
+<body>
+
+    <div class="modal" id="modal">
+        <form  method="post" class="card-modal">
+            <button onclick="modal()" class="close" type="button"><ion-icon name="close"></ion-icon></button>
+            
+            <div class="input-wrapper">
+                <label for="order_price">Ordenar por:</label>
+                <select name="order_price" id="order_price">
+                    <option value="menor_preco" selected>Menor preço</option>
+                    <option value="maior_preco">Maior preço</option>
+                </select>
+            </div>
+            
+            <div class="input-wrapper">
+                <label for="order_date">Data da publicação:</label>
+                <select name="order_date" id="order_date">
+                    <option value="menor_preco" selected>Menor preço</option>
+                    <option value="maior_preco">Maior preço</option>
+                </select>
+            </div>
+
+            <div class="row">
+                <div class="input-wrapper">
+                    <label for="valor_minimo">Valor mínimo</label>
+                    <input type="text" name="valor_minimo" id="valor_minimo" placeholder="Ex: R$ 49,90">
+                </div>
+
+                <div class="input-wrapper">
+                    <label for="valor_minimo">Valor mínimo</label>
+                    <input type="text" name="valor_minimo" id="valor_minimo" placeholder="Ex: R$ 49,90">
+                </div>
+            </div>
+
+            <div class="input-wrapper">
+                <label for="data_publicacao">Data do evento</label>
+                <input type="date" name="data_publicacao" id="data_publicacao">
+            </div>
+
+            <button type="submit">Filtrar</button>
+        </form>
+        <div class="bg-blur" onclick="modal();"></div>
+    </div>
+
+    <header>
+        <button onclick="modal();">
+            <ion-icon name="filter-sharp"></ion-icon>
+        </button>
+
+        <input type="search" name="search" id="search" placeholder="Ex: Ingresso Taylor Swift">
+
+        <button onclick="">
+            <ion-icon name="search"></ion-icon>
+        </button>
+    </header>
+
+    <div class="results">
+
+        <div class="card product">
+            <img src="./assets/produto_imagem.png" alt="Imagem produto">
+            <div class="informations">
+                <p class="title">Produto</p>
+                <p class="description">Lorem ipsum dolor sit amet consectetur.</p>
+                <a href="./visualizar_ingresso.html">Ver mais</a>
+            </div>
+        </div>
+
+        <div class="card product">
+            <img src="./assets/produto_imagem.png" alt="Imagem produto">
+            <div class="informations">
+                <p class="title">Produto</p>
+                <p class="description">Lorem ipsum dolor sit amet consectetur.</p>
+                <a href="./visualizar_ingresso.html">Ver mais</a>
+            </div>
+        </div>
+
+        <div class="card product">
+            <img src="./assets/produto_imagem.png" alt="Imagem produto">
+            <div class="informations">
+                <p class="title">Produto</p>
+                <p class="description">Lorem ipsum dolor sit amet consectetur.</p>
+                <a href="./visualizar_ingresso.html">Ver mais</a>
+            </div>
+        </div>
+
+    </div>
+
+    <nav>
+        <a href="./home.html" class="active">
+            <i data-lucide="house"></i>
+        </a>
+        <a href="./ingressos.html">
+            <i data-lucide="ticket"></i>
+        </a>
+        <a href="./perfil.html">
+            <i data-lucide="user-round"></i>
+        </a>
+    </nav>
+
+
+    <!-- Ionic Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+
+    <script src="./js/modal.js"></script>
+
+</body>
+</html>
