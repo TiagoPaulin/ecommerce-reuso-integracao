@@ -20,7 +20,7 @@
 
     <img src="./assets/logo.png" alt="logo">
 
-    <form action="">
+    <form action="" id="form-register">
         <h1>CADASTRO</h1>
         <div class="input-wrapper">
             <label for="name">Nome completo</label>
@@ -52,6 +52,38 @@
             <a href="./login.html">Login aqui</a>
         </div>
     </form>
+
+    <script>
+        $('#form-register').submit(function(event) {
+            event.preventDefault();
+            var name = $('#name').val();
+            var email = $('#email').val();
+            var cpf = $('#cpf').val();
+            var birth = $('#birth_date').val();
+            var password = $('#password').val();
+            $.ajax({
+                url: 'http://localhost:8080/pfs',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    nomeCompleto: name,
+                    email: email,
+                    cpf: cpf,
+                    dataNascimento: birth,
+                    senha: password
+                }),
+                success: function(response){
+                    console.log(response);
+                    $('#form-register')[0].reset();
+                },
+                error: function(xhr, status, error) {
+                    alert("Ocorreu um erro ao realizar cadastro.");
+                    console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            });
+            e
+        });
+    </script>
 
 </body>
 </html>
