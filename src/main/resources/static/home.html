@@ -83,34 +83,38 @@
         </button>
     </header>
 
-    <div class="results">
+    <div class="results" id="results">
 
-        <div class="card product">
-            <img src="./assets/produto_imagem.png" alt="Imagem produto">
-            <div class="informations">
-                <p class="title">Produto</p>
-                <p class="description">Lorem ipsum dolor sit amet consectetur.</p>
-                <a href="./visualizar_ingresso.html">Ver mais</a>
-            </div>
-        </div>
+        <script>
+            $(document).ready(function() {
+                $.ajax({
+                    url: 'http://localhost:8080/ingressos',
+                    method: 'GET',
+                    success: function(response) {
+                        console.log(response);
+                        $('#results').empty();
+                        response.forEach(function(ingresso) {
+                            var cardHTML = `
+                                <div class="card product">
+                                    <img src="./assets/produto_imagem.png" alt="Imagem produto">
+                                    <div class="informations">
+                                        <p class="title">${ingresso.titulo}</p>
+                                        <p class="description">${ingresso.descricao}</p>
+                                        <a href="./visualizar_ingresso.html">Ver mais</a>
+                                    </div>
+                                </div>
+                            `;
+                            $('#results').append(cardHTML);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        alert("Ocorreu um erro ao carregar os ingressos.");
+                        console.log('Status: ' + status + '\nErro: ' + error);
+                    }
+                });
+            });
+        </script>
 
-        <div class="card product">
-            <img src="./assets/produto_imagem.png" alt="Imagem produto">
-            <div class="informations">
-                <p class="title">Produto</p>
-                <p class="description">Lorem ipsum dolor sit amet consectetur.</p>
-                <a href="./visualizar_ingresso.html">Ver mais</a>
-            </div>
-        </div>
-
-        <div class="card product">
-            <img src="./assets/produto_imagem.png" alt="Imagem produto">
-            <div class="informations">
-                <p class="title">Produto</p>
-                <p class="description">Lorem ipsum dolor sit amet consectetur.</p>
-                <a href="./visualizar_ingresso.html">Ver mais</a>
-            </div>
-        </div>
 
     </div>
 
