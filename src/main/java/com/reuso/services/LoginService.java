@@ -19,7 +19,7 @@ public class LoginService {
     @Autowired
     PessoaJuridicaRepository pessoaJuridicaRepository;
 
-    public boolean verificarLogin(String email, String senha) {
+    public Long verificarLogin(String email, String senha) {
 
         Optional<PessoaJuridica> pessoaJuridicaOpt = pessoaJuridicaRepository.findByEmailAndSenha(email, senha);
 
@@ -28,7 +28,7 @@ public class LoginService {
 
             if (pessoaJuridica.getEmail().equals(email) &&
                     pessoaJuridica.getSenha().equals(senha)) {
-                return true;
+                return pessoaJuridica.getId();
             }
         }
 
@@ -39,11 +39,11 @@ public class LoginService {
 
             if (pessoaFisica.getEmail().equals(email) &&
                     pessoaFisica.getSenha().equals(senha)) {
-                return true;
+                return pessoaFisica.getId();
             }
         }
 
-        return false;
+        return null;
 
     }
 

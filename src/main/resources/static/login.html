@@ -55,7 +55,7 @@
                     success: function(response) {
                         if (response.success) {
                             console.log(response);
-                            localStorage.setItem('logged', true); // Armazena 'logged' como 'true'
+                            localStorage.setItem('userId', response.userId);
                             alert('Login realizado com sucesso!');
                             window.location.href = 'home.html';
                         } else {
