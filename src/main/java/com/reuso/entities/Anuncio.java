@@ -28,16 +28,16 @@ public class Anuncio implements Serializable{
 	private Long id;
 	private String titulo;
     private String descricao;
-    
+
+    @JsonIgnore
     @OneToMany(mappedBy="anuncio")
     private List<Ingresso> ingressos = new ArrayList<>();
     
-    @JsonIgnore
+
     @ManyToOne
 	@JoinColumn(name = "pj_a_id")
 	private PessoaJuridica pessoaJuridicaAnuncio;
-    
-    @JsonIgnore
+
     @ManyToOne
 	@JoinColumn(name = "pf_a_id")
 	private PessoaFisica pessoaFisicaAnuncio;

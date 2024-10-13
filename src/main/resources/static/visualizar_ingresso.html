@@ -17,10 +17,8 @@
     <link rel="stylesheet" href="./css/modal.css">
     <link rel="stylesheet" href="./css/visualizar_ingresso.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
 </head>
 <body>
-
 <script>
         $(document).ready(function() {
             if(!localStorage.getItem('userId')){
@@ -35,7 +33,8 @@
                 method: 'GET',
                 success: function(response) {
                     console.log(response);
-                    $('#titulo').html(response.titulo);
+                    content(response);
+                    $('#valor_total').text(`R$: ${response.valor.toFixed(2)}`)
                 },
                 error: function(xhr, status, error) {
                         alert("Ocorreu um erro ao carregar os ingressos.");
@@ -43,8 +42,61 @@
                 }
             });
         });
-    </script>
 
+        function convertTimestampToDate(timestamp) {
+            // Cria um objeto Date a partir do timestamp
+            let date = new Date(timestamp);
+
+            // Extrai o dia, mês e ano
+            let day = String(date.getDate()).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+            let month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+            let year = date.getFullYear();
+
+            // Retorna a data formatada como dd-mm-yyyy
+            return `${day}/${month}/${year}`;
+        }
+
+        function content(response) {
+            var cabecalhoContent = `
+                <h4>${response.titulo}</h4>
+                <p>21:45 - ${convertTimestampToDate(response.evento.data)}</p>
+            `;
+            var ingressoInfo = `
+                <h4>${response.titulo}</h4>
+
+                <div class="row">
+                    <ion-icon name="calendar-sharp"></ion-icon>
+                    <p>${convertTimestampToDate(response.evento.data)}</p>
+                </div>
+
+                <div class="row">
+                    <ion-icon name="time-sharp"></ion-icon>
+                    <p>21:45</p>
+                </div>
+
+                <div class="row" style="margin-top: 12px;">
+                    <div class="user-picture">
+                        <img src="./assets/produto_imagem.png" alt="Imagem Usuário">
+                    </div>
+                    <p style="font-weight: 600;">${response.pjVendedor ? response.pjVendedor.fantasia : response.pfVendedor.nomeCompleto}</p>
+                </div>
+            `;
+            for(let i = 1; i <= response.quantidade; i ++) {
+                var quantity = `
+                    <option value="${i}">${i}</option>
+                `;
+                $('#quantity').append(quantity);
+            }
+            $('#cabecalho').html(cabecalhoContent);
+            $('#informations').html(ingressoInfo);
+            $('#quantity').on('change', function () {
+                let selectedQuantity = $(this).val();
+                console.log("Quantidade selecionada:", selectedQuantity); // Adicione este log
+                let total = selectedQuantity * response.valor;
+                $('#valor_total').text(`R$: ${total.toFixed(2)}`);
+            });
+        }
+    </script>
 <div class="modal" id="modal">
     <form  method="post" class="card-modal">
 
@@ -80,22 +132,40 @@
         <button onclick="history.back();">
             <ion-icon name="chevron-back-outline"></ion-icon>
         </button>
-        <div>
-            <h4 id="titulo"></h4>
-            <p>21:45 - 06/09/2024</p>
+        <div id="cabecalho">
+
         </div>
     </div>
 
 </header>
 
 <main>
-    <a onclick="modal()">
+    <a onclick="modal()" id="denunciar_anuncio">
         <ion-icon name="alert-circle-outline" style="font-size: 32px;"></ion-icon>
         Denunciar anúncio
     </a>
+
+    <img src="./assets/produto_imagem.png" alt="" id="imagem_anuncio">
+
+    <div class="informations" id="informations">
+
+    </div>
+
+    <form id="selecionar-ingresso">
+        <div class="input-wrapper">
+            <label for="quantity">Quantidade de ingressos</label>
+            <select name="quantity" id="quantity">
+
+            </select>
+        </div>
+
+        <h3 id="valor_total">R$: </h3>
+
+        <button type="submit">Adicionar ao carrinho</button>
+    </form>
 </main>
 
-<!-- 
+<!--
     <div class="results">
 
         <div class="produto">
@@ -144,4 +214,3 @@
 <script src="./js/modal.js"></script>
 
 </body>
-</html>

@@ -27,22 +27,18 @@ public class Ingresso implements Serializable{
     private float valor;
     private boolean inteiro;
 
-    @JsonIgnore
     @ManyToOne
 	@JoinColumn(name = "pj_i_id")
     private PessoaJuridica pjVendedor;
-    
-    @JsonIgnore
+
     @ManyToOne
 	@JoinColumn(name = "pf_i_id")
     private PessoaFisica pfVendedor;
-    
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "evento_id")
     private Evento evento;
-    
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "anuncio_id")
     private Anuncio anuncio;

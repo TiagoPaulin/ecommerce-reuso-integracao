@@ -24,13 +24,11 @@ public class Telefone implements Serializable {
     private String ddi;
     private String ddd;
     private String numero;
-    
-    @JsonIgnore
+
     @ManyToOne
 	@JoinColumn(name = "pj_t_id")
 	private PessoaJuridica pessoaJuridicaTelefone;
-    
-    @JsonIgnore
+
     @ManyToOne
 	@JoinColumn(name = "pf_t_id")
 	private PessoaFisica pessoaFisicaTelefone;

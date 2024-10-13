@@ -23,16 +23,20 @@ public class PessoaJuridica extends Usuario implements Serializable{
 	
 	private String fantasia;
     private String cnpj;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "pessoaJuridicaTelefone")
 	private List<Telefone> telefones = new ArrayList<>();
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "pjVendedor")
 	private List<Ingresso> ingressos = new ArrayList<>();
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "pessoaJuridicaAnuncio")
 	private List<Anuncio> anuncios = new ArrayList<>();
-    
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "pjComprador")
 	private List<Venda> compras = new ArrayList<>();
 	

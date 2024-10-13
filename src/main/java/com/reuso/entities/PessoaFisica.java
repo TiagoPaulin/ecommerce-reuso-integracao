@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.reuso.entities.abstracts.Usuario;
 
 import jakarta.persistence.Entity;
@@ -20,16 +21,18 @@ public class PessoaFisica extends Usuario implements Serializable{
 	private String nomeCompleto;
 	private Date dataNascimento;
     private String cpf;
-    
+    @JsonIgnore
 	@OneToMany(mappedBy = "pessoaFisicaTelefone")
 	private List<Telefone> telefones = new ArrayList<>();
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "pfVendedor")
 	private List<Ingresso> ingressos = new ArrayList<>();
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "pessoaFisicaAnuncio")
 	private List<Anuncio> anuncios = new ArrayList<>();
-    
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "pfComprador")
 	private List<Venda> compras = new ArrayList<>();
 	

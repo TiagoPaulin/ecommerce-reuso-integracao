@@ -30,7 +30,8 @@ public class Evento {
     @ManyToOne
 	@JoinColumn(name = "tipoEvento_id")
 	private TipoEvento tipoEvento;
-	
+
+	@JsonIgnore
 	@OneToMany(mappedBy = "evento")
 	private List<Ingresso> ingressos = new ArrayList<>();
 	
@@ -75,7 +76,7 @@ public class Evento {
 	public void setTipoEvento(TipoEvento tipoEvento) {
 		this.tipoEvento = tipoEvento;
 	}
-	
+
 	public List<Ingresso> getIngressos() {
 		return ingressos;
 	}

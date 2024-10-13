@@ -23,18 +23,15 @@ public class Venda implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name = "anuncio_id")
 	private Anuncio anuncioVenda;
-	
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name="pf_v_id")
 	private PessoaFisica pfComprador;
-	
-	@JsonIgnore
+
 	@ManyToOne
 	@JoinColumn(name="pj_v_id")
 	private PessoaJuridica pjComprador;
