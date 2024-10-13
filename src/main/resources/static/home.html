@@ -78,7 +78,7 @@
 
     <input type="search" name="search" id="search" placeholder="Ex: Ingresso Taylor Swift">
 
-    <button onclick="">
+    <button onclick="buscar()" id="search-buton">
         <ion-icon name="search"></ion-icon>
     </button>
 </header>
@@ -112,6 +112,40 @@
                     }
                 });
             });
+            function buscar(){
+                var search = $('#search').val();
+                $("#search").val('');
+                if(search == "" || search == " ") {
+                    alert('Digite algo na busca');
+                } else {
+                    $.ajax({
+                        url: 'http://localhost:8080/ingressos/search',
+                        method: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify({search : search}),
+                        success: function(response) {
+                            $('#results').empty();
+                            response.forEach(function(ingresso) {
+                                var cardHTML = `
+                                    <div class="card product">
+                                        <img src="./assets/produto_imagem.png" alt="Imagem produto">
+                                        <div class="informations">
+                                            <p class="title">${ingresso.titulo}</p>
+                                            <p class="description">${ingresso.descricao}</p>
+                                            <a href="./visualizar_ingresso.html?id=${ingresso.id}">Ver mais</a>
+                                        </div>
+                                    </div>
+                                `;
+                                $('#results').append(cardHTML);
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            alert("Ocorreu um erro ao carregar os ingressos.");
+                            console.log('Status: ' + status + '\nErro: ' + error);
+                        }
+                    });
+                }
+            };
         </script>
 
 </div>

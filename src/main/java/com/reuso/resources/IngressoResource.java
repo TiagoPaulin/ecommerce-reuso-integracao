@@ -2,6 +2,7 @@ package com.reuso.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +46,14 @@ public class IngressoResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
 	}
-	
+
+	@PostMapping(value = "/search")
+	public ResponseEntity<List<Ingresso>> buscar(@RequestBody Map<String, String> search) {
+		String busca = search.get("search");
+		List<Ingresso> list = service.buscar(busca);
+		return ResponseEntity.ok().body(list);
+	}
+
 	@DeleteMapping(value = "/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id){
 		service.delete(id);

@@ -16,6 +16,8 @@ import com.reuso.services.exceptions.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import javax.swing.text.html.Option;
+
 @Service
 public class IngressoService {
 
@@ -29,6 +31,10 @@ public class IngressoService {
 	public Ingresso findById(Long id) {
 		Optional<Ingresso> obj = repository.findById(id);
 		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+	}
+
+	public List<Ingresso> buscar(String search) {
+		return repository.searchByTitleOrDescription(search);
 	}
 	
 	public Ingresso insert(Ingresso obj) {
