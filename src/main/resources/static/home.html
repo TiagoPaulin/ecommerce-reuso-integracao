@@ -17,10 +17,6 @@
     <link rel="stylesheet" href="./css/home.css">
     <link rel="stylesheet" href="./css/modal.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-
-</head>
-<body>
-
     <script>
         $(document).ready(function() {
             if(!localStorage.getItem('userId')){
@@ -28,70 +24,73 @@
             }
         });
     </script>
+</head>
+<body>
 
-    <div class="modal" id="modal">
-        <form  method="post" class="card-modal">
-            <button onclick="modal()" class="close" type="button"><ion-icon name="close"></ion-icon></button>
-            
+
+
+<div class="modal" id="modal">
+    <form  method="post" class="card-modal" id="form-filtro">
+        <button onclick="modal()" class="close" type="button"><ion-icon name="close"></ion-icon></button>
+
+        <div class="input-wrapper">
+            <label for="order_price">Ordenar por:</label>
+            <select name="order_price" id="order_price">
+                <option value="menor_preco" selected>Menor preço</option>
+                <option value="maior_preco">Maior preço</option>
+            </select>
+        </div>
+
+        <!-- <div class="input-wrapper">
+            <label for="order_date">Data da publicação:</label>
+            <select name="order_date" id="order_date">
+                <option value="menor_preco" selected>Menor preço</option>
+                <option value="maior_preco">Maior preço</option>
+            </select>
+        </div> -->
+
+        <div class="row">
             <div class="input-wrapper">
-                <label for="order_price">Ordenar por:</label>
-                <select name="order_price" id="order_price">
-                    <option value="menor_preco" selected>Menor preço</option>
-                    <option value="maior_preco">Maior preço</option>
-                </select>
-            </div>
-            
-            <div class="input-wrapper">
-                <label for="order_date">Data da publicação:</label>
-                <select name="order_date" id="order_date">
-                    <option value="menor_preco" selected>Menor preço</option>
-                    <option value="maior_preco">Maior preço</option>
-                </select>
-            </div>
-
-            <div class="row">
-                <div class="input-wrapper">
-                    <label for="valor_minimo">Valor mínimo</label>
-                    <input type="text" name="valor_minimo" id="valor_minimo" placeholder="Ex: R$ 49,90">
-                </div>
-
-                <div class="input-wrapper">
-                    <label for="valor_minimo">Valor mínimo</label>
-                    <input type="text" name="valor_minimo" id="valor_minimo" placeholder="Ex: R$ 49,90">
-                </div>
+                <label for="valor_minimo">Valor mínimo</label>
+                <input type="text" name="valor_minimo" id="valor_minimo" placeholder="Ex: R$ 49,90">
             </div>
 
             <div class="input-wrapper">
-                <label for="data_publicacao">Data do evento</label>
-                <input type="date" name="data_publicacao" id="data_publicacao">
+                <label for="valor_minimo">Valor máximo</label>
+                <input type="text" name="valor_minimo" id="valor_maximo" placeholder="Ex: R$ 49,90">
             </div>
+        </div>
 
-            <button type="submit">Filtrar</button>
-        </form>
-        <div class="bg-blur" onclick="modal();"></div>
-    </div>
+        <div class="input-wrapper">
+            <label for="data_publicacao">Data do evento</label>
+            <input type="date" name="data_publicacao" id="data_publicacao">
+        </div>
 
-    <header>
-        <button onclick="modal();">
-            <ion-icon name="filter-sharp"></ion-icon>
-        </button>
+        <button type="submit">Filtrar</button>
+    </form>
+    <div class="bg-blur" onclick="modal();"></div>
+</div>
 
-        <input type="search" name="search" id="search" placeholder="Ex: Ingresso Taylor Swift">
+<header>
+    <button onclick="modal();">
+        <ion-icon name="filter-sharp"></ion-icon>
+    </button>
 
-        <button onclick="">
-            <ion-icon name="search"></ion-icon>
-        </button>
-    </header>
+    <input type="search" name="search" id="search" placeholder="Ex: Ingresso Taylor Swift">
 
-    <div class="results" id="results">
+    <button onclick="">
+        <ion-icon name="search"></ion-icon>
+    </button>
+</header>
 
-        <script>
+<div class="results" id="results">
+
+    <script>
             $(document).ready(function() {
                 $.ajax({
                     url: 'http://localhost:8080/ingressos',
                     method: 'GET',
                     success: function(response) {
-                        console.log(response);
                         $('#results').empty();
                         response.forEach(function(ingresso) {
                             var cardHTML = `
@@ -100,7 +99,7 @@
                                     <div class="informations">
                                         <p class="title">${ingresso.titulo}</p>
                                         <p class="description">${ingresso.descricao}</p>
-                                        <a href="./visualizar_ingresso.html">Ver mais</a>
+                                        <a href="./visualizar_ingresso.html?id=${ingresso.id}">Ver mais</a>
                                     </div>
                                 </div>
                             `;
@@ -115,33 +114,32 @@
             });
         </script>
 
+</div>
 
-    </div>
-
-    <nav>
-        <a href="./home.html" class="active">
-            <i data-lucide="house"></i>
-        </a>
-        <a href="./ingressos.html">
-            <i data-lucide="ticket"></i>
-        </a>
-        <a href="./perfil.html">
-            <i data-lucide="user-round"></i>
-        </a>
-    </nav>
+<nav>
+    <a href="./home.html" class="active">
+        <i data-lucide="house"></i>
+    </a>
+    <a href="./ingressos.html">
+        <i data-lucide="ticket"></i>
+    </a>
+    <a href="./perfil.html">
+        <i data-lucide="user-round"></i>
+    </a>
+</nav>
 
 
-    <!-- Ionic Icons -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<!-- Ionic Icons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
         lucide.createIcons();
     </script>
 
-    <script src="./js/modal.js"></script>
+<script src="./js/modal.js"></script>
 
 </body>
 </html>

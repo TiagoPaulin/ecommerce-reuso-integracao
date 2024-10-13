@@ -21,63 +21,79 @@
 </head>
 <body>
 
-    <script>
+<script>
         $(document).ready(function() {
             if(!localStorage.getItem('userId')){
                 window.location.href = 'login.html';
             }
+            const url = window.location.search;
+            const urlParams = new URLSearchParams(url);
+            const idIngresso = urlParams.get('id');
+            console.log(idIngresso);
+            $.ajax({
+                url: `http://localhost:8080/ingressos/${idIngresso}`,
+                method: 'GET',
+                success: function(response) {
+                    console.log(response);
+                    $('#titulo').html(response.titulo);
+                },
+                error: function(xhr, status, error) {
+                        alert("Ocorreu um erro ao carregar os ingressos.");
+                        console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            });
         });
     </script>
 
-    <div class="modal" id="modal">
-        <form  method="post" class="card-modal">
+<div class="modal" id="modal">
+    <form  method="post" class="card-modal">
 
-            <div class="row">
-                <div class="left">
-                    <ion-icon name="alert-circle-outline" style="font-size: 32px;"></ion-icon>
-                    <h4>Denunciar anúncio</h4>
-                </div>
-
-                <button onclick="modal()" class="close" type="button"><ion-icon name="close"></ion-icon></button>
+        <div class="row">
+            <div class="left">
+                <ion-icon name="alert-circle-outline" style="font-size: 32px;"></ion-icon>
+                <h4>Denunciar anúncio</h4>
             </div>
 
-            
-            <div class="input-wrapper">
-                <label for="motivo">Motivo da denúncia *</label>
-                <select name="motivo" id="motivo">
-                    <option value="ingresso_fraudulento" selected>Ingresso fraudulento</option>
-                </select>
-            </div>
+            <button onclick="modal()" class="close" type="button"><ion-icon name="close"></ion-icon></button>
+        </div>
 
-            <div class="input-wrapper">
-                <label for="observacao">Observação</label>
-                <textarea type="text" name="observacao" id="observacao" placeholder="Ex: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget ligula aliquet, iaculis est eu, ornare velit. Cras vestibulum venenatis blandit."></textarea>
-            </div>
-            
-            <button type="submit">Enviar denúncia</button>
-        </form>
-        <div class="bg-blur" onclick="modal();"></div>
+
+        <div class="input-wrapper">
+            <label for="motivo">Motivo da denúncia *</label>
+            <select name="motivo" id="motivo">
+                <option value="ingresso_fraudulento" selected>Ingresso fraudulento</option>
+            </select>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="observacao">Observação</label>
+            <textarea type="text" name="observacao" id="observacao" placeholder="Ex: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget ligula aliquet, iaculis est eu, ornare velit. Cras vestibulum venenatis blandit."></textarea>
+        </div>
+
+        <button type="submit">Enviar denúncia</button>
+    </form>
+    <div class="bg-blur" onclick="modal();"></div>
+</div>
+
+<header>
+    <div class="left">
+        <button onclick="history.back();">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <div>
+            <h4 id="titulo"></h4>
+            <p>21:45 - 06/09/2024</p>
+        </div>
     </div>
 
-    <header>
-        <div class="left">
-            <button onclick="history.back();">
-                <ion-icon name="chevron-back-outline"></ion-icon>
-            </button>
-            <div>
-                <h4>Brasil x Equador</h4>
-                <p>21:45 - 06/09/2024</p>
-            </div>
-        </div>
-        
-    </header>
+</header>
 
-    <main>
-        <a onclick="modal()">
-            <ion-icon name="alert-circle-outline" style="font-size: 32px;"></ion-icon>
-            Denunciar anúncio
-        </a>
-    </main>
+<main>
+    <a onclick="modal()">
+        <ion-icon name="alert-circle-outline" style="font-size: 32px;"></ion-icon>
+        Denunciar anúncio
+    </a>
+</main>
 
 <!-- 
     <div class="results">
@@ -102,30 +118,30 @@
 
     </div> -->
 
-    <nav>
-        <a href="./home.html">
-            <i data-lucide="house"></i>
-        </a>
-        <a href="./ingressos.html" class="active">
-            <i data-lucide="ticket"></i>
-        </a>
-        <a href="./perfil.html">
-            <i data-lucide="user-round"></i>
-        </a>
-    </nav>
+<nav>
+    <a href="./home.html">
+        <i data-lucide="house"></i>
+    </a>
+    <a href="./ingressos.html" class="active">
+        <i data-lucide="ticket"></i>
+    </a>
+    <a href="./perfil.html">
+        <i data-lucide="user-round"></i>
+    </a>
+</nav>
 
 
-    <!-- Ionic Icons -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<!-- Ionic Icons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
         lucide.createIcons();
     </script>
 
-    <script src="./js/modal.js"></script>
+<script src="./js/modal.js"></script>
 
 </body>
 </html>
