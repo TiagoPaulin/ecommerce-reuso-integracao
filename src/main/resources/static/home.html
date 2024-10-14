@@ -91,6 +91,7 @@
                     url: 'http://localhost:8080/ingressos',
                     method: 'GET',
                     success: function(response) {
+                        console.log(response);
                         $('#results').empty();
                         response.forEach(function(ingresso) {
                             var cardHTML = `

@@ -15,4 +15,7 @@ public interface IngressoRepository extends JpaRepository<Ingresso, Long>{
             "LOWER(i.descricao) LIKE LOWER(CONCAT('%', :search, '%'))")
     List<Ingresso> searchByTitleOrDescription(@Param("search") String search);
 
+    List<Ingresso> findAllByPfVendedor_Id(Long id);
+    List<Ingresso> findAllByPjVendedor_Id(Long id);
+
 }

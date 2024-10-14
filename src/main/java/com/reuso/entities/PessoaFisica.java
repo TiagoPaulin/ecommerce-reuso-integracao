@@ -21,7 +21,6 @@ public class PessoaFisica extends Usuario implements Serializable{
 	private String nomeCompleto;
 	private Date dataNascimento;
     private String cpf;
-    @JsonIgnore
 	@OneToMany(mappedBy = "pessoaFisicaTelefone")
 	private List<Telefone> telefones = new ArrayList<>();
 

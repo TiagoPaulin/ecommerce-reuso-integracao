@@ -24,7 +24,6 @@ public class PessoaJuridica extends Usuario implements Serializable{
 	private String fantasia;
     private String cnpj;
 
-	@JsonIgnore
 	@OneToMany(mappedBy = "pessoaJuridicaTelefone")
 	private List<Telefone> telefones = new ArrayList<>();
 

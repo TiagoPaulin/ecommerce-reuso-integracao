@@ -38,6 +38,11 @@ public class IngressoResource {
 		Ingresso obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+
+	@PostMapping(value = "/uingresso")
+	public ResponseEntity<List<Ingresso>> getIngressosUsuario(@RequestBody Map<String, Object> userInfo) {
+		return ResponseEntity.ok().body(service.buscarPorUsuario(userInfo));
+	}
 	
 	@PostMapping
 	public ResponseEntity<Ingresso> insert(@RequestBody Ingresso obj){

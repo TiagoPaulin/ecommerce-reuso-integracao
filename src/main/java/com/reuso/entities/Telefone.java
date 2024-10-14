@@ -27,10 +27,12 @@ public class Telefone implements Serializable {
 
     @ManyToOne
 	@JoinColumn(name = "pj_t_id")
+	@JsonIgnore
 	private PessoaJuridica pessoaJuridicaTelefone;
 
     @ManyToOne
 	@JoinColumn(name = "pf_t_id")
+	@JsonIgnore
 	private PessoaFisica pessoaFisicaTelefone;
     
     public Telefone() {

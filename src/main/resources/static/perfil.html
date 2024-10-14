@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./css/header.css">
+    <link rel="stylesheet" href="./css/nav.css">
+    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/modal.css">
+    <link rel="stylesheet" href="./css/perfil.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+
+    <script>
+        $(document).ready(function() {
+            if(!localStorage.getItem('userId')){
+                window.location.href = 'login.html';
+            }
+        })
+    </script>
+</head>
+<body>
+<div class="modal" id="modal">
+    <form  method="post" class="card-modal">
+        <div class="row">
+            <div class="left">
+                <ion-icon name="person" style="font-size: 32px;"></ion-icon>
+                <h4>Editar perfil</h4>
+            </div>
+            <button onclick="modal()" class="close" type="button"><ion-icon name="close"></ion-icon></button>
+        </div>
+
+        <div class="input-wrapper">
+            <label for="nome_usuario">Nome do usuário</label>
+            <input type="text" name="nome_usuario" id="nome_usuario">
+        </div>
+
+        <div class="input-wrapper">
+            <label for="email_usuario">E-mail</label>
+            <input type="email" name="email_usuario" id="email_usuario">
+        </div>
+
+        <div class="input-wrapper">
+            <label for="data_nascimento_usuario"></label>
+            <input type="email" name="data_nascimento_usuario" id="data_nascimento_usuario">
+        </div>
+        <div class="input-wrapper">
+            <label for="observacao">Observação</label>
+            <textarea type="text" name="observacao" id="observacao" placeholder="Ex: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin eget ligula aliquet, iaculis est eu, ornare velit. Cras vestibulum venenatis blandit."></textarea>
+        </div>
+
+        <button type="submit">Enviar denúncia</button>
+    </form>
+    <div class="bg-blur" onclick="modal();"></div>
+</div>
+<header>
+    <div class="left">
+        <button onclick="history.back();">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <div>
+            <h4>Perfil</h4>
+        </div>
+    </div>
+
+</header>
+<main>
+    <div class="user_informations" id="user_informations">
+
+
+    </div>
+
+    <button style="background-color: var(--red);" onclick="deleteUser()">Excluir conta</button>
+
+    <h4>Ingressos cadastrados</h4>
+
+    <div class="results" id="ingressos_cadastrados">
+
+
+    </div>
+
+</main>
+
+<nav>
+    <a href="./home.html" >
+        <i data-lucide="house"></i>
+    </a>
+    <a href="./ingressos.html">
+        <i data-lucide="ticket"></i>
+    </a>
+    <a href="./perfil.html" class="active">
+        <i data-lucide="user-round"></i>
+    </a>
+</nav>
+<!-- Ionic Icons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
+        lucide.createIcons();
+    </script>
+<script src="./js/modal.js"></script>
+
+<script>
+        $(document).ready(function() {
+            $.ajax({
+                url: createUrl(),
+                method: 'GET',
+                success: function(response) {
+                    userInfo(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('Ocorreu um erro ao tentar fazer login.');
+                    console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            })
+            $.ajax({
+                url: 'http://localhost:8080/ingressos/uingresso',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    id: localStorage.getItem("userId"),
+                    tipo: localStorage.getItem("tipo")
+                }),
+                success: function(response) {
+                    console.log(response);
+                    content(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('Ocorreu um erro ao tentar fazer login.');
+                    console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            });
+        });
+
+        function createUrl() {
+            var tipoUsuario = localStorage.getItem("tipo");
+            var idUsuario = localStorage.getItem("userId");
+            var url = 'http://localhost:8080/';
+
+            if (tipoUsuario === "juridica") {
+                return url = `${url}pjs/${idUsuario}`;
+            } else {
+                return url = `${url}pfs/${idUsuario}`;
+            }
+        }
+
+        function deleteUser() {
+            var confirmation = confirm("Tem certeza que deseja deletar o seu usuário?");
+            if (confirmation) {
+                $.ajax({
+                    url: createUrl(),
+                    method: 'DELETE',
+                    success: function() {
+                        localStorage.removeItem("userId");
+                        localStorage.removeItem("tipo");
+                        window.location.href = 'login.html';
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Ocorreu um erro ao tentar deletar o usuário.');
+                        console.log('Status: ' + status + '\nErro: ' + error);
+                    }
+                });
+            } else {
+                // Ação cancelada pelo usuário
+                alert('Ação de exclusão cancelada.');
+            }
+        }
+
+        function userInfo(response) {
+            var userInfo;
+            var telefoneInfo = response.telefones.length > 0
+                    ? `${response.telefones[0].ddi} ${response.telefones[0].ddd} ${response.telefones[0].numero}`
+                    : "Nenhum telefone disponível";
+            if (localStorage.getItem("tipo") === "juridica") {
+                userInfo = `
+                    <div class="user_picture">
+                        <img src="./assets/produto_imagem.png" alt="Imagem usuário">
+                    </div>
+                    <div class="informations">
+                        <h4 class="nome_usuario">${response.fantasia}</h4>
+                        <p class="telefone_usuario">${telefoneInfo}</p>
+                    </div>
+                    <button onclick="modal()">
+                        <ion-icon name="pencil"></ion-icon>
+                    </button>
+                `;
+            } else {
+                userInfo = `
+                    <div class="user_picture">
+                        <img src="./assets/produto_imagem.png" alt="Imagem usuário">
+                    </div>
+                    <div class="informations">
+                        <h4 class="nome_usuario">${response.nomeCompleto}</h4>
+                        <p>Data de nascimento: <span class="data_nascimento_usuario">${convertTimestampToDate(response.dataNascimento)}</span></p>
+                        <p class="telefone_usuario">${telefoneInfo}</p>
+                    </div>
+                    <button onclick="modal()">
+                        <ion-icon name="pencil"></ion-icon>
+                    </button>
+                `;
+            }
+            $('#user_informations').append(userInfo);
+        }
+
+        function convertTimestampToDate(timestamp) {
+            // Cria um objeto Date a partir do timestamp
+            let date = new Date(timestamp);
+
+            // Extrai o dia, mês e ano
+            let day = String(date.getDate()).padStart(2, '0'); // Adiciona zero à esquerda se necessário
+            let month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam em 0
+            let year = date.getFullYear();
+
+            // Retorna a data formatada como dd-mm-yyyy
+            return `${day}/${month}/${year}`;
+        }
+
+        function content(response){
+            response.forEach(function(ingresso) {
+                var cardHTML = `
+                    <div class="card product">
+                        <img src="./assets/produto_imagem.png" alt="Imagem produto">
+                        <div class="informations">
+                            <p class="title">${ingresso.titulo}</p>
+                            <p class="description">${ingresso.descricao}</p>
+                            <a href="./visualizar_ingresso.html?id=${ingresso.id}">Ver mais</a>
+                        </div>
+                    </div>
+                `;
+                $('#ingressos_cadastrados').append(cardHTML);
+            });
+        }
+    </script>
+</body>
+</html>

@@ -14,31 +14,31 @@
     <link rel="stylesheet" href="./css/styles.css">
     <link rel="stylesheet" href="./css/login.css">
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    
+
 </head>
 <body>
 
-    <img src="./assets/logo.png" alt="logo">
+<img src="./assets/logo.png" alt="logo">
 
-    <form action="" id="login-form">
-        <h1>LOGIN</h1>
-        <div class="input-wrapper">
-            <label for="email">E-mail</label>
-            <input type="text" id="email" name="email" placeholder="Ex: vitalitygym@vitalitygym.com">
-        </div>
-        <div class="input-wrapper">
-            <label for="password">Senha</label>
-            <input type="password" id="password" name="password" placeholder="**********">
-        </div>
-        <a href="#">Esqueci a senha</a>
-        <button type="submit">Entrar</button>
-        <div class="cadastro_div">
-            <p>Não possui login?</p>
-            <a href="./cadastro.html">Cadastre-se aqui</a>
-        </div>
-    </form>
+<form action="" id="login-form">
+    <h1>LOGIN</h1>
+    <div class="input-wrapper">
+        <label for="email">E-mail</label>
+        <input type="text" id="email" name="email" placeholder="Ex: vitalitygym@vitalitygym.com">
+    </div>
+    <div class="input-wrapper">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="password" placeholder="**********">
+    </div>
+    <a href="#">Esqueci a senha</a>
+    <button type="submit">Entrar</button>
+    <div class="cadastro_div">
+        <p>Não possui login?</p>
+        <a href="./cadastro.html">Cadastre-se aqui</a>
+    </div>
+</form>
 
-    <script>
+<script>
         $(document).ready(function() {
             $('#login-form').submit(function(event) {
                 event.preventDefault();
@@ -56,6 +56,7 @@
                         if (response.success) {
                             console.log(response);
                             localStorage.setItem('userId', response.userId);
+                            localStorage.setItem('tipo', response.tipo);
                             alert('Login realizado com sucesso!');
                             window.location.href = 'home.html';
                         } else {
@@ -70,7 +71,6 @@
             });
         });
     </script>
-
 
 </body>
 </html>

@@ -26,12 +26,13 @@ public class LoginResource {
 
         Map<String, Object> response = new HashMap<>();
 
-        Long userId = loginService.verificarLogin(email, senha);
+        Map<String, Object> userInfo = loginService.verificarLogin(email, senha);
 
-        if (userId != null) {
+        if (userInfo != null) {
             response.put("success", true);
             response.put("message", "Login realizado com sucesso!");
-            response.put("userId", userId);
+            response.put("userId", userInfo.get("id"));
+            response.put("tipo", userInfo.get("tipo"));
             return ResponseEntity.ok(response);
         } else {
             response.put("success", false);

@@ -1,6 +1,7 @@
 package com.reuso.services;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,18 @@ public class IngressoService {
 
 	public List<Ingresso> buscar(String search) {
 		return repository.searchByTitleOrDescription(search);
+	}
+
+	public List<Ingresso> buscarPorUsuario(Map<String, Object> userInfo) {
+
+		Long id = Long.valueOf(userInfo.get("id").toString());
+
+		if (userInfo.get("tipo").toString().equals("juridica")) {
+			return repository.findAllByPjVendedor_Id(id);
+		} else {
+			return repository.findAllByPfVendedor_Id(id);
+		}
+
 	}
 	
 	public Ingresso insert(Ingresso obj) {

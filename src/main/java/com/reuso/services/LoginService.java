@@ -8,6 +8,8 @@ import com.reuso.repositories.PessoaJuridicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -19,7 +21,9 @@ public class LoginService {
     @Autowired
     PessoaJuridicaRepository pessoaJuridicaRepository;
 
-    public Long verificarLogin(String email, String senha) {
+    public Map<String, Object> verificarLogin(String email, String senha) {
+
+        Map<String, Object> response = new HashMap<>();
 
         Optional<PessoaJuridica> pessoaJuridicaOpt = pessoaJuridicaRepository.findByEmailAndSenha(email, senha);
 
@@ -28,7 +32,9 @@ public class LoginService {
 
             if (pessoaJuridica.getEmail().equals(email) &&
                     pessoaJuridica.getSenha().equals(senha)) {
-                return pessoaJuridica.getId();
+                response.put("id", pessoaJuridica.getId());
+                response.put("tipo", "juridica");
+                return response;
             }
         }
 
@@ -39,7 +45,9 @@ public class LoginService {
 
             if (pessoaFisica.getEmail().equals(email) &&
                     pessoaFisica.getSenha().equals(senha)) {
-                return pessoaFisica.getId();
+                response.put("id", pessoaFisica.getId());
+                response.put("tipo", "fisica");
+                return response;
             }
         }
 
