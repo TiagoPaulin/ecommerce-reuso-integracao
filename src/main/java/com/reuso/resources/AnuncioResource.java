@@ -2,7 +2,16 @@ package com.reuso.resources;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
+import com.reuso.entities.Ingresso;
+import com.reuso.entities.PessoaFisica;
+import com.reuso.entities.PessoaJuridica;
+import com.reuso.entities.state.anuncio.EstadoAnuncioBase;
+import com.reuso.repositories.EstadoAnuncioRepository;
+import com.reuso.services.PessoaFisicaService;
+import com.reuso.services.PessoaJuridicaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -25,6 +34,13 @@ public class AnuncioResource {
 	
 	@Autowired
 	private AnuncioService service;
+
+	@Autowired
+	private PessoaFisicaService pessoaFisicaService;
+	@Autowired
+	private PessoaJuridicaService pessoaJuridicaService;
+	@Autowired
+	private EstadoAnuncioRepository estadoAnuncioRepository;
 	
 	@GetMapping
 	public ResponseEntity<List<Anuncio>> findAll(){
@@ -39,10 +55,34 @@ public class AnuncioResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Anuncio> insert(@RequestBody Anuncio obj){
+	public ResponseEntity<Anuncio> insert(@RequestBody Map<String, Object> dadosAnuncio){
+
+		Anuncio obj = new Anuncio();
+
+		String titulo = dadosAnuncio.get("titulo").toString();
+		String descricao = dadosAnuncio.get("descricao").toString();
+		Optional<EstadoAnuncioBase> estadoAnuncio = estadoAnuncioRepository.findById(Long.parseLong("1"));
+
+		obj.setTitulo(titulo);
+		obj.setDescricao(descricao);
+		obj.setEstadoAnuncio(estadoAnuncio.get());
+
+		if (dadosAnuncio.get("tipoUsuario").toString().equals("juridica")){
+
+			PessoaJuridica pj = pessoaJuridicaService.findById(Long.parseLong(dadosAnuncio.get("idUsuario").toString()));
+			obj.setPessoaJuridicaAnuncio(pj);
+
+		} else {
+
+			PessoaFisica pf = pessoaFisicaService.findById(Long.parseLong(dadosAnuncio.get("idUsuario").toString()));
+			obj.setPessoaFisicaAnuncio(pf);
+
+		}
+
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
+
 	}
 	
 	@DeleteMapping(value = "/{id}")

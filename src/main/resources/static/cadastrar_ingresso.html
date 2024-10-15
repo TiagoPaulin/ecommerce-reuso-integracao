@@ -22,7 +22,7 @@
 </head>
 <body>
 
-    <script>
+<script>
         $(document).ready(function() {
             if(!localStorage.getItem('userId')){
                 window.location.href = 'login.html';
@@ -30,87 +30,211 @@
         });
     </script>
 
-    <header>
-        <div class="left">
-            <button onclick="history.back();">
-                <ion-icon name="chevron-back-outline"></ion-icon>
-            </button>
-            <h2>Cadastrar Produto</h2>
-        </div>
+<header>
+    <div class="left">
+        <button onclick="history.back();">
+            <ion-icon name="chevron-back-outline"></ion-icon>
+        </button>
+        <h2>Cadastrar Produto</h2>
+    </div>
 
-    </header>
+</header>
 
-    <form>
-        <div class="input-wrapper">
-            <label for="titulo_produto">Título do Produto</label>
-            <input type="text" name="titulo_produto" id="titulo_produto" placeholder="Ex: Ingresso Show Linkin Park">
-        </div>
+<form id="form_ingresso">
+    <div class="input-wrapper">
+        <label for="titulo_produto">Título do Produto</label>
+        <input type="text" name="titulo_produto" id="titulo_produto" placeholder="Ex: Ingresso Show Linkin Park">
+    </div>
 
-        <div class="input-wrapper">
-            <label for="titulo_evento">Título do Evento</label>
-            <input type="text" name="titulo_evento" id="titulo_evento" placeholder="Ex: Ingresso Show Linkin Park">
-        </div>
+    <div class="input-wrapper">
+        <label for="titulo_evento">Título do Evento</label>
+        <input type="text" name="titulo_evento" id="titulo_evento" placeholder="Ex: Ingresso Show Linkin Park">
+    </div>
 
-        <div class="input-wrapper">
-            <label for="tipo_evento">Tipo do Evento</label>
-            <select name="tipo_evento" id="tipo_evento">
-                <option value="show" selected>Show</option>
-                <option value="festa_universitaria">Festa Universitária</option>
-            </select>
-        </div>
+    <div class="input-wrapper">
+        <label for="tipo_evento">Tipo do Evento</label>
+        <select name="tipo_evento" id="tipo_evento">
+            <option value="show" selected>Selecione uma opcao</option>
+        </select>
+    </div>
 
-        <div class="input-wrapper">
-            <label for="imagem">Upload da imagem do produto</label>
-            <label for="imagem" class="input_image">
-                <img src="./assets/UploadImage.svg" alt="Upload Image">
-            </label>
+    <div class="input-wrapper">
+        <label for="imagem">Upload da imagem do produto</label>
+        <label for="imagem" class="input_image">
+            <img src="./assets/UploadImage.svg" alt="Upload Image">
+        </label>
 
-            <input type="file" name="imagem" id="imagem" style="display: none;">
-        </div>
+        <input type="file" name="imagem" id="imagem" style="display: none;">
+    </div>
 
-        <div class="input-wrapper">
-            <label for="descricao_produto">Descrição do Produto</label>
-            <textarea type="text" name="descricao_produto" id="descricao_produto" placeholder="Ex: Ingresso Show Linkin Park"></textarea>
-        </div>
+    <div class="input-wrapper">
+        <label for="descricao_produto">Descrição do Produto</label>
+        <textarea type="text" name="descricao_produto" id="descricao_produto" placeholder="Ex: Ingresso Show Linkin Park"></textarea>
+    </div>
 
-        <div class="input-wrapper">
-            <label for="data_evento">Data do evento</label>
-            <input type="date" name="data_evento" id="data_evento">
-        </div>
+    <div class="input-wrapper">
+        <label for="data_evento">Data do evento</label>
+        <input type="date" name="data_evento" id="data_evento">
+    </div>
 
-        <div class="input-wrapper">
-            <label for="horario_evento">Horário do evento</label>
-            <input type="time" name="horario_evento" id="horario_evento">
-        </div>
+    <div class="input-wrapper">
+        <label for="horario_evento">Horário do evento</label>
+        <input type="time" name="horario_evento" id="horario_evento">
+    </div>
+    <div class="input-wrapper">
+        <label for="valor_produto">Valor do produto</label>
+        <input type="text" name="valor_produto" id="valor_produto" class="preco">
+    </div>
 
-        <button type="submit">Publicar</button>
-    </form>
+    <div class="input-wrapper">
+        <label for="quantidade">Quantidade</label>
+        <input type="number" name="quantidade" id="quantidade">
+    </div>
 
-    <nav>
-        <a href="./home.html">
-            <i data-lucide="house"></i>
-        </a>
-        <a href="./ingressos.html" class="active">
-            <i data-lucide="ticket"></i>
-        </a>
-        <a href="./perfil.html">
-            <i data-lucide="user-round"></i>
-        </a>
-    </nav>
+    <button type="submit">Publicar</button>
+</form>
+
+<nav>
+    <a href="./home.html">
+        <i data-lucide="house"></i>
+    </a>
+    <a href="./ingressos.html" class="active">
+        <i data-lucide="ticket"></i>
+    </a>
+    <a href="./perfil.html">
+        <i data-lucide="user-round"></i>
+    </a>
+</nav>
 
 
-    <!-- Ionic Icons -->
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+<!-- Ionic Icons -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<script>
         lucide.createIcons();
     </script>
 
-    <script src="./js/modal.js"></script>
-    <script src="./js/previewImg.js"></script>
+<script>
+        $(document).ready(function () {
+
+            $.ajax({
+                url: 'http://localhost:8080/tiposeventos',
+                method: 'GET',
+                success: function(response) {
+                    console.log(response)
+                    response.forEach(function (tipoEvento){
+                        var option = `
+                            <option value="${tipoEvento.id}">${tipoEvento.descricao}</option>
+                        `
+                        $('#tipo_evento').append(option);
+                    })
+                },
+                error: function(xhr, status, error) {
+                    alert('Ocorreu um erro ao publicar o ingresso.');
+                    console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            });
+        });
+
+        $('#form_ingresso').submit(function(event) {
+            event.preventDefault();
+            var tituloProduto = $('#titulo_produto').val();
+            var tituloEvento = $('#titulo_evento').val();
+            var tipoEvento = $('#tipo_evento').val();
+            var descricaoProduto = $('#descricao_produto').val();
+            var dataEvento = $('#data_evento').val();
+            var horarioEvento = $('#horario_evento').val();
+            var valor = $('#valor_produto').val();
+            var quantidade = $('#quantidade').val();
+
+            insertEvento(tituloProduto, tituloEvento, tipoEvento, descricaoProduto, dataEvento, horarioEvento, valor, quantidade);
+
+        });
+
+        function insertEvento(tituloProduto, tituloEvento, tipoEvento, descricaoProduto, dataEvento, horarioEvento, valor, quantidade) {
+
+            $.ajax({
+                url: 'http://localhost:8080/eventos',
+                method: 'POST',
+                contentType: 'application/json',  // Necessário para o envio correto de arquivos
+                data: JSON.stringify({
+                    descricao: tituloEvento,
+                    data: dataEvento,
+                    horario: horarioEvento,
+                    tipoEvento: tipoEvento
+                }),
+                success: function(responseEvento) {
+                    console.log(responseEvento);
+
+                    insertAnuncio(responseEvento, tituloProduto, descricaoProduto, valor, quantidade);
+
+                },
+                error: function(xhr, status, error) {
+                    alert('Ocorreu um erro ao publicar o ingresso.');
+                    console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            });
+
+        }
+
+        function insertAnuncio(responseEvento, tituloProduto, descricaoProduto, valor, quantidade) {
+
+            $.ajax({
+                url: 'http://localhost:8080/anuncios',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    titulo: tituloProduto,
+                    descricao: descricaoProduto,
+                    idUsuario: localStorage.getItem("userId"),
+                    tipoUsuario: localStorage.getItem("tipo")
+                }),
+                success: function(responseAnuncio) {
+                    console.log(responseAnuncio);
+                    insertIngresso(responseEvento, responseAnuncio, valor, quantidade);
+                },
+                error: function(xhr, status, error) {
+                    alert('Ocorreu um erro ao publicar o ingresso.');
+                    console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            });
+
+        }
+
+        function insertIngresso(responseEvento, responseAnuncio, valor, quantidade) {
+
+            $.ajax({
+                url: 'http://localhost:8080/ingressos',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    titulo: responseAnuncio.titulo,
+                    descricao: responseAnuncio.descricao,
+                    quantidade: quantidade,
+                    valor: valor,
+                    evento: responseEvento.id,
+                    anuncio: responseAnuncio.id,
+                    tipoUsuario: localStorage.getItem("tipo"),
+                    idUsuario: localStorage.getItem("userId")
+                }),
+                success: function(response) {
+                    console.log(response);
+                },
+                error: function(xhr, status, error) {
+                    alert('Ocorreu um erro ao publicar o ingresso.');
+                    console.log('Status: ' + status + '\nErro: ' + error);
+                }
+            });
+
+        }
+
+    </script>
+
+<script src="./js/modal.js"></script>
+<script src="./js/previewImg.js"></script>
 
 </body>
 </html>

@@ -177,13 +177,6 @@
         }
 
         function updateUser() {
-            var campos = document.querySelectorAll('#form_update input');
-            campos.forEach(function(campo) {
-                if(campo.value.trim() === ''){
-                    alert("Todos os campos devem ser preenchidos");
-                    return;
-                }
-            })
             var nome = $('#nome_usuario').val();
             var email = $('#email_usuario').val();
             var cpf = $('#cpf_usuario').val();

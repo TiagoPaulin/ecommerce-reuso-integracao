@@ -1,8 +1,11 @@
 package com.reuso.resources;
 
 import java.net.URI;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import com.reuso.services.TipoEventoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,6 +29,9 @@ public class EventoResource {
 	
 	@Autowired
 	private EventoService service;
+
+	@Autowired
+	private TipoEventoService tipoEventoService;
 	
 	@GetMapping
 	public ResponseEntity<List<Evento>> findAll(){
@@ -40,7 +46,12 @@ public class EventoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Evento> insert(@RequestBody Evento obj){
+	public ResponseEntity<Evento> insert(@RequestBody Map<String, Object> dadosEvento){
+		String descricao = dadosEvento.get("descricao").toString();
+		String data = dadosEvento.get("data").toString();
+		String horario = dadosEvento.get("horario").toString();
+		TipoEvento tipo = tipoEventoService.findById(Long.parseLong(dadosEvento.get("tipoEvento").toString()));
+		Evento obj = new Evento(null, descricao, data, horario, tipo);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

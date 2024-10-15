@@ -3,7 +3,13 @@ package com.reuso.resources;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import com.reuso.entities.*;
+import com.reuso.repositories.EventoRepository;
+import com.reuso.repositories.PessoaFisicaRepository;
+import com.reuso.repositories.PessoaJuridicaRepository;
+import com.reuso.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.reuso.entities.Ingresso;
-import com.reuso.services.IngressoService;
-
 
 @RestController
 @RequestMapping(value = "/ingressos")
@@ -26,6 +29,14 @@ public class IngressoResource {
 	
 	@Autowired
 	private IngressoService service;
+	@Autowired
+	private PessoaJuridicaService pessoaJuridicaService;
+	@Autowired
+	private PessoaFisicaService pessoaFisicaService;
+	@Autowired
+	private EventoService eventoService;
+	@Autowired
+	private AnuncioService anuncioService;
 	
 	@GetMapping
 	public ResponseEntity<List<Ingresso>> findAll(){
@@ -45,10 +56,44 @@ public class IngressoResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Ingresso> insert(@RequestBody Ingresso obj){
+	public ResponseEntity<Ingresso> insert(@RequestBody Map<String, Object> dadosIngresso){
+
+		Ingresso obj = new Ingresso();
+
+		String titulo = dadosIngresso.get("titulo").toString();
+		String descricao = dadosIngresso.get("descricao").toString();
+		int quantidade =  Integer.parseInt(dadosIngresso.get("quantidade").toString());
+		float valor = Float.parseFloat(dadosIngresso.get("valor").toString());
+		Long idUsuario = Long.parseLong(dadosIngresso.get("idUsuario").toString());
+
+		Evento evento = eventoService.findById(Long.parseLong(dadosIngresso.get("evento").toString()));
+		Anuncio anuncio = anuncioService.findById(Long.parseLong(dadosIngresso.get("anuncio").toString()));
+
+		obj.setTitulo(titulo);
+		obj.setDescricao(descricao);
+		obj.setQuantidade(quantidade);
+		obj.setValor(valor);
+		obj.setEvento(evento);
+		obj.setAnuncio(anuncio);
+
+		if (dadosIngresso.get("tipoUsuario").toString().equals("juridica")){
+
+			PessoaJuridica pj = pessoaJuridicaService.findById(idUsuario);
+			obj.setPjVendedor(pj);
+			obj.setPfVendedor(null);
+
+		} else {
+
+			PessoaFisica pf = pessoaFisicaService.findById(idUsuario);
+			obj.setPfVendedor(pf);
+			obj.setPjVendedor(null);
+
+		}
+
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);
+
 	}
 
 	@PostMapping(value = "/search")
