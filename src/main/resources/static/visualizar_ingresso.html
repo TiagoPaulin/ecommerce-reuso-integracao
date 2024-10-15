@@ -20,13 +20,16 @@
 </head>
 <body>
 <script>
+
+        var idIngresso;
+
         $(document).ready(function() {
             if(!localStorage.getItem('userId')){
                 window.location.href = 'login.html';
             }
             const url = window.location.search;
             const urlParams = new URLSearchParams(url);
-            const idIngresso = urlParams.get('id');
+            idIngresso = urlParams.get('id');
             console.log(idIngresso);
             $.ajax({
                 url: `http://localhost:8080/ingressos/${idIngresso}`,
@@ -37,10 +40,11 @@
                     $('#valor_total').text(`R$: ${response.valor.toFixed(2)}`)
                 },
                 error: function(xhr, status, error) {
-                        alert("Ocorreu um erro ao carregar os ingressos.");
-                        console.log('Status: ' + status + '\nErro: ' + error);
+                    alert("Ocorreu um erro ao carregar os ingressos.");
+                    console.log('Status: ' + status + '\nErro: ' + error);
                 }
             });
+
         });
 
         function convertTimestampToDate(timestamp) {
@@ -96,6 +100,42 @@
                 let total = selectedQuantity * response.valor;
                 $('#valor_total').text(`R$: ${total.toFixed(2)}`);
             });
+
+            var idProprietario = response.pjVendedor ? response.pjVendedor.id : response.pfVendedor.id;
+            var tipoProprietario = response.pfVendedor === null ? "juridica" : "fisica";
+
+            if(localStorage.getItem("userId") == idProprietario && localStorage.getItem("tipo") == tipoProprietario) {
+                $('#btn_action').html("Deletar Anúncio");
+                $('#btn_action').css('background-color', 'red');
+                $('#selecionar-ingresso').submit(function(event) {
+                    event.preventDefault();
+                    deleteIngresso();
+                })
+            } else {
+                $('#selecionar-ingresso').submit(function(event) {
+                    event.preventDefault();
+                    alert("Ingresso adicionado no carrinho")
+                })
+            }
+
+        }
+
+        function deleteIngresso() {
+            if(confirm("Deseja mesmo deletar o seu Ingresso?")) {
+                $.ajax({
+                    url: `http://localhost:8080/ingressos/${idIngresso}`,
+                    method: 'DELETE',
+                    success: function (response) {
+                        console.log(response)
+                        alert("ingresso deletado");
+                        window.location.href = 'home.html';
+                    },
+                    error: function(xhr, status, error) {
+                            alert("Ocorreu um erro ao carregar os ingressos.");
+                            console.log('Status: ' + status + '\nErro: ' + error);
+                    }
+                });
+            }
         }
     </script>
 <div class="modal" id="modal">
@@ -162,7 +202,7 @@
 
         <h3 id="valor_total">R$: </h3>
 
-        <button type="submit">Adicionar ao carrinho</button>
+        <button type="submit" id="btn_action">Adicionar ao carrinho</button>
     </form>
 </main>
 
